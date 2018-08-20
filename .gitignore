@@ -1,0 +1,11 @@
+# temporary files
+tmp/
+
+# node
+node_modules/
+
+# vim files
+*.sw?
+
+# File artifacts
+*~

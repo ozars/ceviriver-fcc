@@ -1,0 +1,32 @@
+{
+  "name": "ceviriver-fcc",
+  "version": "1.0.0",
+  "description": "freeCodeCamp Turkish translation to be used with Ceviriver user script",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozars/ceviriver-fcc.git"
+  },
+  "keywords": [
+    "freeCodeCamp",
+    "Turkce",
+    "programlama",
+    "translation"
+  ],
+  "author": "Omer Ozarslan <code@ozarslan.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ozars/ceviriver-fcc/issues"
+  },
+  "homepage": "https://github.com/ozars/ceviriver-fcc#readme",
+  "engines": {
+    "node": "^8.11.3"
+  },
+  "dependencies": {
+    "fs-extra": "^7.0.0",
+    "selenium-webdriver": "^3.6.0"
+  }
+}
