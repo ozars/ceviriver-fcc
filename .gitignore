@@ -1,6 +1,9 @@
 # temporary files
 tmp/
 
+# unpacked firefox
+vendor/firefox
+
 # node
 node_modules/
 

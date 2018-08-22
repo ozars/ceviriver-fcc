@@ -2,7 +2,10 @@
 
 const fs = require('fs-extra');
 const readline = require('readline');
-const webdriver = require('selenium-webdriver');
+const wd = require('selenium-webdriver');
+require('geckodriver');
+
+require('./selenium-utils.js');
 
 const tmpdir = 'tmp';
 
@@ -30,9 +33,47 @@ async function askOverwriteIfExists(dir) {
   }
 }
 
+async function installCeviriver(driver) {
+  console.log(driver);
+  /* Install tampermonkey. */
+  await driver.installAddon('vendor/tampermonkey.xpi');
+  console.log('Installed tampermonkey.');
+
+  /* Wait for tampermonkey update tab and close it. */
+  await driver.switchToPopup();
+  await driver.closeTab();
+  console.log('Closed tampermonkey tab.');
+
+  /* Install user script. */
+  await driver.navigate(
+    'https://github.com/ozars/ceviriver/raw/master/ceviriver.user.js');
+  await driver.switchToPopup();
+  await driver.closeOtherTabs();
+  await driver.wait(wd.until.elementLocated(wd.By.name('Install')));
+  await driver.executeScript(() => {
+    document.getElementsByName('Install')[0].click();
+  });
+  console.log('Installed Ceviriver');
+}
+
 async function main() {
   await askOverwriteIfExists(tmpdir);
   fs.mkdirSync(tmpdir);
+
+  let driver = await new wd.Builder()
+    .withCapabilities({
+      'moz:firefoxOptions' : {
+        'binary' : 'vendor/firefox/firefox',
+        'log' : {'level' : 'trace' }
+      }
+    }).forBrowser('firefox').build();
+
+
+  try {
+    await installCeviriver(driver);
+  } finally {
+    await driver.quit();
+  }
 }
 
-main();
+return main();
